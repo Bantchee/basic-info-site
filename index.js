@@ -6,8 +6,11 @@ const port = 8080;
 
 const server = http.createServer((req, res) => {
     const q = url.parse(req.url, true);
-    console.log(q);
     let filename = "." + q.pathname;
+    if(filename === "./") {
+        filename = "./index.html"
+    }
+
     fs.readFile(filename, (err, data) => {
         if (err) {
             res.writeHead(404, {'Content-Type': 'text/html'});
